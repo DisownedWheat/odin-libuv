@@ -4,8 +4,10 @@ import "core:c"
 import "core:mem"
 import "core:net"
 
+STATIC :: #config(STATIC, false)
+
 when ODIN_OS == .Linux {
-	foreign import lib "./libuv.a"
+	foreign import lib {"./libuv.a" when STATIC else "system:uv"}
 } else {
 	foreign import lib "system:libuv"
 }
